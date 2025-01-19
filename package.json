@@ -1,0 +1,38 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Website for conducting an online treasure hunt for Xplore techfest. This event is conducted by ISTE GCEK.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js",
+    "start-prod": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rizvirishal1/Xplore-Treasure-Hunt-ISTE-GCEK.git"
+  },
+  "keywords": [
+    "online treasure hunt",
+    "ISTE GCEK",
+    "Xplore",
+    "Xplore techfest",
+    "Xplore pre events"
+  ],
+  "author": "Rizvi Rishal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rizvirishal1/Xplore-Treasure-Hunt-ISTE-GCEK/issues"
+  },
+  "homepage": "https://istegcek.in/xplore-treasure-hunt",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "type": "module"
+}
