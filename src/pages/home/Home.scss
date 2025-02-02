@@ -1,0 +1,18 @@
+.home {
+    .home-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        Button {
+            margin-top: 20px;
+        }
+
+    }
+
+
+    h1 {
+        text-align: center;
+        color: aqua;
+    }
+}
