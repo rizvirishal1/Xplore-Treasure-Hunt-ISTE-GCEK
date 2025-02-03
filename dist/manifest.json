@@ -1,0 +1,25 @@
+{
+  "short_name": "Treasure Hunt",
+  "name": "Xplore Treasure Hunt ISTE GCEK",
+  "icons": [
+    {
+      "src": "iste-logo.png",
+      "sizes": "64x64 32x32 24x24 16x16 192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "iste-logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "iste-logo192.png192",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
