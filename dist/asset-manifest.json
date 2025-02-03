@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/xplore-treasure-hunt/static/css/main.b0efbdb1.css",
-    "main.js": "/xplore-treasure-hunt/static/js/main.631852f4.js",
+    "main.js": "/xplore-treasure-hunt/static/js/main.67051127.js",
     "static/js/488.e75445ad.chunk.js": "/xplore-treasure-hunt/static/js/488.e75445ad.chunk.js",
     "index.html": "/xplore-treasure-hunt/index.html",
     "main.b0efbdb1.css.map": "/xplore-treasure-hunt/static/css/main.b0efbdb1.css.map",
-    "main.631852f4.js.map": "/xplore-treasure-hunt/static/js/main.631852f4.js.map",
+    "main.67051127.js.map": "/xplore-treasure-hunt/static/js/main.67051127.js.map",
     "488.e75445ad.chunk.js.map": "/xplore-treasure-hunt/static/js/488.e75445ad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b0efbdb1.css",
-    "static/js/main.631852f4.js"
+    "static/js/main.67051127.js"
   ]
 }
