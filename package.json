@@ -24,7 +24,6 @@
   "bugs": {
     "url": "https://github.com/rizvirishal1/Xplore-Treasure-Hunt-ISTE-GCEK/issues"
   },
-  "homepage": "https://istegcek.in/xplore-treasure-hunt",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
