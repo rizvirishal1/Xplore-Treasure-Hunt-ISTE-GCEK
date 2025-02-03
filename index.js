@@ -39,6 +39,9 @@ mongoose.connect(process.env.DATABASE_URL);
 const renderPort = process.env.PORT;
 const localPort = 5000;
 app.listen(renderPort || localPort, () => {
-    localPort && console.log(`Server started at http://localhost:${localPort}/`);
-    renderPort && console.log(`Server started at https://xplore.istegcek.in/ \nPort: ${renderPort}`);
+    if (renderPort)
+        console.log(`Server started at https://xplore.istegcek.in/ \nPort: ${renderPort}`);
+    else
+        console.log(`Server started at http://localhost:${localPort}/`);
+
 })
