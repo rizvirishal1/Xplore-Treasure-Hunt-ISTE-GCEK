@@ -1,5 +1,8 @@
 //imports...
+import { Button } from '@mui/material';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import { START_TIME } from '../../constants';
 import { END_TIME } from '../../constants';
 //styles
@@ -7,8 +10,9 @@ import './Rules.scss';
 import dateString2humanReadable from '../../services/dateString2humanReadable';
 
 function Rules() {
-    const startTime = dateString2humanReadable(START_TIME);
     const endTime = dateString2humanReadable(END_TIME);
+    const navigate = useNavigate();
+    const startTime = dateString2humanReadable(START_TIME);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isEventOngoing, setIsEventOngoing] = useState(false);
 
@@ -50,19 +54,20 @@ function Rules() {
             <ul>
                 <li>Event starts on {startTime}</li>
                 <li>Event ends on {endTime}</li>
-                <li>Refresh the page if the question is not loaded automatically</li>
-                <li>Rule 1</li>
-                <li>Rule 2</li>
-                <li>Rule 3</li>
-                <li>Rule 4</li>
-                <li>Rule 5</li>
+                <li>Refresh the page if the START button is not enabled automatically</li>
+                <li>There will be 5 rounds.</li>
+                <li>The one who completes all 5 rounds first will declared as the winner.</li>
+                <li>You can only use CAPITAL LETTERS.</li>
+                <li>If your answer has more than one word DON'T PUT SPACE between them.</li>
+                <li>For example,If your answer is "red cat",You should enter it as "REDCAT".</li>
+                <li>Additional hints will provide through whatsapp group based on general performance.</li>
             </ul>
             <Button
                 variant="contained"
                 color="primary"
                 size="large"
                 disabled={isSubmitting || !isEventOngoing}
-                onclick={onStartClick}
+                onClick={onStartClick}
             >
                 Start
             </Button>

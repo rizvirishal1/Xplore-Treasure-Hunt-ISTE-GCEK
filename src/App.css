@@ -1,0 +1,42 @@
+body {
+    background-color: black;
+    color: white;
+
+    p {
+        color: white
+    }
+
+    Button {
+        max-width: 400px;
+
+    }
+
+    .text-field {
+        max-width: 400px;
+
+        label {
+            color: green;
+        }
+
+        fieldset {
+            border-color: green;
+        }
+
+        .MuiOutlinedInput-root:hover fieldset {
+            border-color: blueviolet;
+        }
+
+
+        input {
+            color: white;
+        }
+
+        input:-webkit-autofill {
+            background-color: black !important;
+            color: white !important;
+            -webkit-text-fill-color: white !important;
+            transition: background-color 9999s ease-in-out 0s;
+        }
+    }
+
+}

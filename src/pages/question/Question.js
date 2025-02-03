@@ -4,7 +4,9 @@ import { Button } from '@mui/material';
 import { END_TIME } from '../../constants';
 import { START_TIME } from '../../constants';
 import { TextField } from '@mui/material';
-import { useNavigate } from "react-router";
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import { useEffect } from 'react';
 //styles
@@ -14,6 +16,8 @@ import dateString2humanReadable from '../../services/dateString2humanReadable';
 function Question() {
     const [errorMessage, setErrorMessage] = useState("");
     const [formData, setFormData] = useState({});
+    const [hint, setHint] = useState("");
+    const [isAnswerChanged, setIsAnswerChanged] = useState(false);
     const [isEventOngoing, setIsEventOngoing] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [level, setLevel] = useState(1);
@@ -46,42 +50,94 @@ function Question() {
 
     useEffect(() => {
         async function fetchData() {
-            if (localStorage.getItem("partcipantMongoId") != null) {
-                const participantData = await api.get(`participant/${localStorage.getItem("partcipantMongoId")}`);
-                setLevel(participantData?.data?.level);
-                const question = await api.get(`question/${localStorage.getItem("partcipantMongoId")}`)
-                setQuestion(question);
+            console.log("\n\n")
+            console.log("fetchData function is running...")
+            if (localStorage.getItem("partcipantMongoId") == null) {
+                navigate("/");
+                console.log('function returned and navigated to home page because of unauthorized entry');
+                console.log('\n\n')
+                return;
             }
+
+            const participantData = await api.get(`participant/${localStorage.getItem("partcipantMongoId")}`);
+            setLevel(participantData?.data?.participant?.level);
+            const response = await api.post(`question/${localStorage.getItem("partcipantMongoId")}`)
+            if (response?.data?.status === "success") {
+                setQuestion(response?.data?.question);
+                setHint(response?.data?.hint);
+            }
+            else if (response?.data?.message === "You have answered all the questions") {
+                setLevel(6);
+            }
+            else {
+                toast.error(response?.data?.message || "Something went wrong!");
+            }
+            console.log("function end...");
+            console.log('\n\n')
+
         }
         fetchData()
-    }, [])
+    }, [navigate])
 
     const onInputChange = async (e) => {
+        setIsAnswerChanged(true);
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const onFormSubmit = async (e) => {
+        console.log("\n\n")
+        console.log("onFormSubmit function is running...");
+
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const response = await api.post("answer", formData);
-            if (response?.status !== 200) {
-                const errorMessage = response?.data?.message || "Something went wrong!";
-                setErrorMessage(errorMessage);
+            if (!isAnswerChanged) {
+                toast.error("incorrect Answer");
+                return;
+            }
+            const partcipantMongoId = localStorage.getItem("partcipantMongoId");
+            if (!partcipantMongoId) {
+                setErrorMessage("Participant not found");
+                console.log("function returned because of unauthorized entry");
+                console.log('\n\n')
+                return;
+            }
+            const response = await api.post(`/question/${partcipantMongoId}`, formData);
+            console.log("question fetch response:");
+            console.log(response);
+            if (response?.data?.status === "success") {
+                setLevel(response?.data?.level);
+                setQuestion(response?.data?.question);
+                setHint(response?.data?.hint);
+            }
+            else if (response?.data?.message === "Incorrect answer") {
+                toast.error("Incorrect Answer");
+                setIsAnswerChanged(false);
+            }
+            else if (response?.data?.message === "You have answered all the questions") {
+                setLevel(6);
             }
             else {
-                localStorage.setItem("isLoggedIn", true);
-                localStorage.setItem("partcipantMongoId", response.data.participantMongoId);
-                navigate("/rules");
+                toast.error(response?.data?.message || "Something went wrong!");
             }
+            console.log("function end...");
+            console.log('\n\n')
+
         } catch (e) {
             console.log(e);
+        } finally {
+            setIsSubmitting(false);
         }
+
     }
 
     return (
         <div className="question">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {console.log("error message:")}
+            {console.log(errorMessage)}
+            <ToastContainer />
+            {console.log("isEventOngoing:")}
+            {console.log(isEventOngoing)}
             {!isEventOngoing && (
                 <div className='question-page-event-not-ongoing'>
                     <p>Event starts on {dateString2humanReadable(START_TIME)}</p>
@@ -89,12 +145,15 @@ function Question() {
                     <p>Refresh the page if the Question is not loaded automatically</p>
                 </div>
             )}
-            {isEventOngoing && (
+            {console.log("level:")}
+            {console.log(level)}
+            {isEventOngoing && level < 6 && (
                 <div className='question-page-event-ongoing'>
                     <h1>LEVEL {level}</h1>
-                    <p>{question?.question}</p>
-                    <h1>HINTS</h1>
-                    <p>{question?.hint}</p>
+                    <h2>QUESTION</h2>
+                    <p>{question}</p>
+                    <h2>HINTS</h2>
+                    <p>{hint}</p>
                     <form onSubmit={onFormSubmit}>
                         <TextField
                             margin="dense"
@@ -103,6 +162,7 @@ function Question() {
                             name="answer"
                             required
                             onChange={onInputChange}
+                            className='text-field'
                         />
                         <Button
                             variant="contained"
@@ -110,6 +170,7 @@ function Question() {
                             size="large"
                             disabled={isSubmitting}
                             type="submit"
+                            onClick={onFormSubmit}
                         >
                             Submit
                         </Button>
@@ -117,6 +178,15 @@ function Question() {
 
                 </div>
             )}
+            {level > 5 && (
+                <div className='question-page-completed'>
+                    <h1>Event Completed</h1>
+                    <p>You have answered all the questions</p>
+                    <p>Thank you for participating</p>
+                </div>
+            )
+
+            }
 
         </div>
     )

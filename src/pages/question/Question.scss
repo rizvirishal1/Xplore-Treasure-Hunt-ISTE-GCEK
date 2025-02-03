@@ -1,0 +1,19 @@
+.question {
+    margin-left: 50px;
+    margin-right: 50px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        Button {
+            margin-top: 20px;
+        }
+
+        .text-field {
+            margin-top: 50px;
+
+        }
+    }
+
+}
