@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/xplore-treasure-hunt/static/css/main.b0efbdb1.css",
-    "main.js": "/xplore-treasure-hunt/static/js/main.67051127.js",
-    "static/js/488.e75445ad.chunk.js": "/xplore-treasure-hunt/static/js/488.e75445ad.chunk.js",
-    "index.html": "/xplore-treasure-hunt/index.html",
-    "main.b0efbdb1.css.map": "/xplore-treasure-hunt/static/css/main.b0efbdb1.css.map",
-    "main.67051127.js.map": "/xplore-treasure-hunt/static/js/main.67051127.js.map",
-    "488.e75445ad.chunk.js.map": "/xplore-treasure-hunt/static/js/488.e75445ad.chunk.js.map"
+    "main.css": "/static/css/main.b0efbdb1.css",
+    "main.js": "/static/js/main.7e13cd3c.js",
+    "static/js/488.e75445ad.chunk.js": "/static/js/488.e75445ad.chunk.js",
+    "index.html": "/index.html",
+    "main.b0efbdb1.css.map": "/static/css/main.b0efbdb1.css.map",
+    "main.7e13cd3c.js.map": "/static/js/main.7e13cd3c.js.map",
+    "488.e75445ad.chunk.js.map": "/static/js/488.e75445ad.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b0efbdb1.css",
-    "static/js/main.67051127.js"
+    "static/js/main.7e13cd3c.js"
   ]
 }
