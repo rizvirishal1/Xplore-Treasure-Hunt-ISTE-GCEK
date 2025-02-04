@@ -11,7 +11,6 @@ import './Rules.scss';
 import dateString2humanReadable from '../../services/dateString2humanReadable';
 
 function Rules() {
-    const endTime = dateString2humanReadable(END_TIME);
     const navigate = useNavigate();
     const startTime = dateString2humanReadable(START_TIME);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,6 +78,7 @@ function Rules() {
                     size="large"
                     onClick={onStartClick}
                     type='submit'
+                    disabled={isSubmitting}
                 >
                     Start
                 </Button>
