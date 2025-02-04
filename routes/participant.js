@@ -34,7 +34,10 @@ participantRouter.get("/:id", async (req, res) => {
 
         console.log("request end... ")
         console.log("\n\n")
-        return res.json({ participant: participant });
+        return res.json({
+            status: "success",
+            participant: participant
+        });
 
     } catch (err) {
         console.error(err);
