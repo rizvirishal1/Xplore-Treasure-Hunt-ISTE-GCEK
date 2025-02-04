@@ -53,7 +53,7 @@ function Rules() {
             <h1>Rules</h1>
             <ul>
                 <li>Event starts on {startTime}</li>
-                <li>Event ends on {endTime}</li>
+                <li>Event ends on February 5, 2025 at 12:00 AM</li>
                 <li>Refresh the page if the START button is not enabled automatically</li>
                 <li>There will be 5 rounds.</li>
                 <li>The one who completes all 5 rounds first will declared as the winner.</li>

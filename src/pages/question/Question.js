@@ -100,12 +100,14 @@ function Question() {
                 setErrorMessage("Participant not found");
                 console.log("function returned because of unauthorized entry");
                 console.log('\n\n')
+                navigate("/");
                 return;
             }
             const response = await api.post(`/question/${partcipantMongoId}`, formData);
             console.log("question fetch response:");
             console.log(response);
             if (response?.data?.status === "success") {
+                toast.success("Correct Answer");
                 setLevel(response?.data?.level);
                 setQuestion(response?.data?.question);
                 setHint(response?.data?.hint);
@@ -141,7 +143,7 @@ function Question() {
             {!isEventOngoing && (
                 <div className='question-page-event-not-ongoing'>
                     <p>Event starts on {dateString2humanReadable(START_TIME)}</p>
-                    <p>Event ends on {dateString2humanReadable(END_TIME)}</p>
+                    <p>Event ends on February 5, 2025 at 12:00 AM</p>
                     <p>Refresh the page if the Question is not loaded automatically</p>
                 </div>
             )}
@@ -152,8 +154,14 @@ function Question() {
                     <h1>LEVEL {level}</h1>
                     <h2>QUESTION</h2>
                     <p>{question}</p>
-                    <h2>HINTS</h2>
-                    <p>{hint}</p>
+                    {
+                        hint && (
+                            <div className='hint'>
+                                <h2>HINT</h2>
+                                <p>{hint}</p>
+                            </div>
+                        )
+                    }
                     <form onSubmit={onFormSubmit}>
                         <TextField
                             margin="dense"
@@ -163,6 +171,7 @@ function Question() {
                             required
                             onChange={onInputChange}
                             className='text-field'
+                            color='secondary'
                         />
                         <Button
                             variant="contained"
