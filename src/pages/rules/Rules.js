@@ -1,5 +1,6 @@
 //imports...
 import { Button } from '@mui/material';
+import { Checkbox } from '@mui/material';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
@@ -59,18 +60,30 @@ function Rules() {
                 <li>The one who completes all 5 rounds first will declared as the winner.</li>
                 <li>You can only use CAPITAL LETTERS.</li>
                 <li>If your answer has more than one word DON'T PUT SPACE between them.</li>
-                <li>For example,If your answer is "red cat",You should enter it as "REDCAT".</li>
+                <li>For example,If your answer is red cat,You should enter it as REDCAT.</li>
                 <li>Additional hints will provide through whatsapp group based on general performance.</li>
             </ul>
-            <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                disabled={isSubmitting || !isEventOngoing}
-                onClick={onStartClick}
-            >
-                Start
-            </Button>
+            <form >
+
+                <p>
+                    <Checkbox
+                        color="secondary"
+                        required
+                        className='checkbox'
+                    >
+                    </Checkbox>I have read and understood the rules
+                </p>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={onStartClick}
+                    type='submit'
+                >
+                    Start
+                </Button>
+
+            </form>
         </div>
     )
 }

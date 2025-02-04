@@ -60,7 +60,11 @@ function Question() {
             }
 
             const participantData = await api.get(`participant/${localStorage.getItem("partcipantMongoId")}`);
-            setLevel(participantData?.data?.participant?.level);
+            if (participantData?.data?.status === "success")
+                setLevel(participantData?.data?.participant?.level);
+            else
+                toast.error(participantData?.data?.message)
+
             const response = await api.post(`question/${localStorage.getItem("partcipantMongoId")}`)
             if (response?.data?.status === "success") {
                 setQuestion(response?.data?.question);
