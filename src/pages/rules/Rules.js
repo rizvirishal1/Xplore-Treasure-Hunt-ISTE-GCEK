@@ -52,6 +52,9 @@ function Rules() {
         if (isEventOngoing) {
             navigate("/question");
         }
+        else {
+            toast.error(`Event starts on ${startTime} and ends on February 5, 2025 at 12:00 AM`);
+        }
         setIsSubmitting(false);
     }
 
