@@ -16,13 +16,63 @@ import dateString2humanReadable from '../../services/dateString2humanReadable';
 function Question() {
     const [errorMessage, setErrorMessage] = useState("");
     const [formData, setFormData] = useState({});
-    const [hint, setHint] = useState("");
+    const [hintTag, setHintTag] = useState(<p></p>)
     const [isAnswerChanged, setIsAnswerChanged] = useState(false);
     const [isEventOngoing, setIsEventOngoing] = useState(false);
+    const [isHintPresent, setIsHintPresent] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [level, setLevel] = useState(1);
     const navigate = useNavigate();
-    const [question, setQuestion] = useState("");
+    const [questionTag, setQuestionTag] = useState(<p></p>);
+
+    const settingQuestionTag = (level, question) => {
+        switch (level) {
+            case 2:
+            case 4: setQuestionTag(<pre
+                style={
+                    {
+                        textWrap: "nowrap",
+
+
+                    }
+                }>{question}</pre>);
+                break;
+            case 1:
+            case 3:
+            case 5: setQuestionTag(<pre>{question}</pre>);
+                break;
+            default: setQuestionTag(<pre></pre>);
+
+
+        }
+    }
+
+    const settingHintTag = (level, hint) => {
+        if (hint) {
+            setIsHintPresent(true)
+        }
+        else
+            setIsHintPresent(false)
+        switch (level) {
+            case 3: setHintTag(<pre
+                style={
+                    {
+                        textWrap: "nowrap",
+
+
+                    }
+                }>{hint}</pre>);
+                break;
+            case 1:
+            case 2:
+            case 4:
+            case 5: setHintTag(<pre>{hint}</pre>);
+                break;
+            default: setHintTag(<pre></pre>);
+
+
+        }
+    }
 
     useEffect(() => {
 
@@ -60,15 +110,18 @@ function Question() {
             }
 
             const participantData = await api.get(`participant/${localStorage.getItem("partcipantMongoId")}`);
-            if (participantData?.data?.status === "success")
+            if (participantData?.data?.status === "success") {
                 setLevel(participantData?.data?.participant?.level);
+            }
             else
                 toast.error(participantData?.data?.message)
 
             const response = await api.post(`question/${localStorage.getItem("partcipantMongoId")}`)
             if (response?.data?.status === "success") {
-                setQuestion(response?.data?.question);
-                setHint(response?.data?.hint);
+                settingQuestionTag(participantData?.data?.participant?.level, response?.data?.question);
+                settingHintTag(participantData?.data?.participant?.level, response?.data?.hint)
+
+
             }
             else if (response?.data?.message === "You have answered all the questions") {
                 setLevel(6);
@@ -113,8 +166,8 @@ function Question() {
             if (response?.data?.status === "success") {
                 toast.success("Correct Answer");
                 setLevel(response?.data?.level);
-                setQuestion(response?.data?.question);
-                setHint(response?.data?.hint);
+                settingQuestionTag(response?.data?.level, response?.data?.question)
+                settingHintTag(response?.data?.level, response?.data?.hint)
             }
             else if (response?.data?.message === "Incorrect answer") {
                 toast.error("Incorrect Answer");
@@ -157,15 +210,15 @@ function Question() {
                 <div className='question-page-event-ongoing'>
                     <h1>LEVEL {level}</h1>
                     <h2>QUESTION</h2>
-                    <p>{question}</p>
+
+                    <span>{questionTag}</span>
                     {
-                        hint && (
-                            <div className='hint'>
-                                <h2>HINT</h2>
-                                <p>{hint}</p>
-                            </div>
-                        )
-                    }
+                        isHintPresent && (
+                            <h2>HINT</h2>)}
+
+                    <span>{hintTag}</span>
+
+
                     <form onSubmit={onFormSubmit}>
                         <TextField
                             margin="dense"

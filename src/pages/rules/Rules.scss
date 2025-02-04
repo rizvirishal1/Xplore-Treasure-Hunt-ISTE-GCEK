@@ -1,23 +1,19 @@
 .rules {
     margin: 50px;
 
-    p {
+    span {
         color: red;
-
-        .checkbox {
-            vertical-align: middle;
-            margin-bottom: 2px;
-        }
+        padding-top: 1px;
     }
 
-    form {
+    .checkbox-button {
         display: flex;
         flex-direction: column;
-
-        Button {
-            max-width: 200px;
-        }
     }
 
+    Button {
+        margin-top: 20px;
+        max-width: 200px;
+    }
 
 }

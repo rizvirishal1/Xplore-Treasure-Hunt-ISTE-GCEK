@@ -2,6 +2,12 @@
     margin-left: 50px;
     margin-right: 50px;
 
+    pre {
+        padding-left: 25px;
+        white-space: pre-wrap; // Allows text wrapping
+        word-wrap: break-word;
+    }
+
     form {
         display: flex;
         flex-direction: column;

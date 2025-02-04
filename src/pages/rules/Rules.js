@@ -1,6 +1,8 @@
 //imports...
 import { Button } from '@mui/material';
 import { Checkbox } from '@mui/material';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
@@ -13,6 +15,7 @@ import dateString2humanReadable from '../../services/dateString2humanReadable';
 function Rules() {
     const navigate = useNavigate();
     const startTime = dateString2humanReadable(START_TIME);
+    const [isChecked, setIsChecked] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isEventOngoing, setIsEventOngoing] = useState(false);
 
@@ -41,15 +44,25 @@ function Rules() {
 
     const onStartClick = () => {
         setIsSubmitting(true);
+        if (!isChecked) {
+            toast.error("Please read and accept the rules to proceed");
+            setIsSubmitting(false);
+            return;
+        }
         if (isEventOngoing) {
             navigate("/question");
         }
         setIsSubmitting(false);
     }
 
+    const handleCheckboxChange = (event) => {
+        setIsChecked(event.target.checked);
+    };
+
 
     return (
         <div className="rules">
+            <ToastContainer />
             <h1>Rules</h1>
             <ul>
                 <li>Event starts on {startTime}</li>
@@ -62,28 +75,28 @@ function Rules() {
                 <li>For example,If your answer is red cat,You should enter it as REDCAT.</li>
                 <li>Additional hints will provide through whatsapp group based on general performance.</li>
             </ul>
-            <form >
 
-                <p>
+            <div class="checkbox-button">
+                <div class="checkbox-label">
                     <Checkbox
                         color="secondary"
-                        required
                         className='checkbox'
+                        onChange={handleCheckboxChange}
                     >
-                    </Checkbox>I have read and understood the rules
-                </p>
+                    </Checkbox>
+                    <span>I have read and understood the rules</span>
+                </div>
                 <Button
                     variant="contained"
                     color="primary"
                     size="large"
                     onClick={onStartClick}
-                    type='submit'
                     disabled={isSubmitting}
                 >
                     Start
                 </Button>
+            </div>
 
-            </form>
         </div>
     )
 }
