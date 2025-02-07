@@ -1,0 +1,1 @@
+This is the website for "Chase the Cluzz: Uncover the Hidden Treasure", online treasure hunt hosted by ISTE GCEK SC, as part of the Xplore'24 Pre-event.
